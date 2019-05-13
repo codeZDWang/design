@@ -84,7 +84,7 @@ Hypervisor，又称虚拟机器监视器（virtual machine monitor，缩写为 V
 
 被Hypervisor用来执行一个或多个虚拟机器的电脑称为主体机器（host machine），这些虚拟机器则称为客体机器（guest machine）。hypervisor提供虚拟的作业平台来执行客体操作系统（guest operating systems），负责管理其他客体操作系统的执行阶段；这些客体操作系统，共同分享虚拟化后的硬件资源。
 
-Gerald J.Popek和Robert P.Goldberg 在他们1974年的文章“Formal Requirements for Virtualizable Third Generation Architectures” 发表了两种类型的Hypervisor，分别是类型I和类型II。
+Gerald J.Popek和Robert P.Goldberg 在他们1974年的文章“Formal Requirements for Virtualizable Third Generation Architectures” 发表了两种类型的Hypervisor，分别是类型I和类型II\cite{Kudinskas}。
 
 \textbf{类型I：本地或裸机Hypervisor}
 
@@ -319,10 +319,10 @@ public class Ant {
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.9, height=0.25]{./Figure/IMG_Chap3_5.png}
+  \includegraphics[width=0.8\linewidth]{./Figure/IMG_Chap3_5.png}
 \end{figure}
 
-$ τ_i_j (t) $表示节点$ i $观察到的节点$ j $的信息素浓度，$allowedList(t) $表示$ t $时刻蚂蚁可以访问的服务器列表，蚂蚁每经过一个服务器就将该服务器从允许列表中移除以防止进行重复搜索，$net_i_j (t) $标记服务器$ i $和服务器$ j $之间带宽的影响，带宽越大，服务器被选择的概率越大，$1 - load_j $表示节点的负载值越低，那么$ 1 - load_j $的值越大，服务器被选择的概率越大。$ α、β、γ $体现了信息素浓度、网络状态和负载值在服务器选择中的相对重要性，其中$ α ≥0，β ≥0，γ ≥0 $。
+$ τ_{i,j} (t) $表示节点$ i $观察到的节点$ j $的信息素浓度，$allowedList(t) $表示$ t $时刻蚂蚁可以访问的服务器列表，蚂蚁每经过一个服务器就将该服务器从允许列表中移除以防止进行重复搜索，$net_{i,j} (t) $标记服务器$ i $和服务器$ j $之间带宽的影响，带宽越大，服务器被选择的概率越大，$1 - load_j $表示节点的负载值越低，那么$ 1 - load_j $的值越大，服务器被选择的概率越大。$ α、β、γ $体现了信息素浓度、网络状态和负载值在服务器选择中的相对重要性，其中$ α ≥0，β ≥0，γ ≥0 $。
 
 蚂蚁算法的核心主要是根据蚂蚁的步长以及蚂蚁对蚂蚁对服务器的选择进行搜索，在搜索过程中根据服务器的负载值判断服务器所处的负载域，如果蚂蚁搜索的服务器处于低负载域，则把相应的服务器信息记录到蚂蚁内存中对应的低负载列表中。最后对服务器的信息素进行更新。蚂蚁算法的实现如下代码所示。
 
@@ -353,10 +353,9 @@ public class AntAlgorithm {
 
 为了及时反应信息素的变化，在蚂蚁搜索服务器的过程中会实时地更新服务器的信息素浓度。全局信息素更新方式如下公式所示。
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
-  \includegraphics{./Figure/IMG_Chap3_6.png}
-  \caption{}\label{Fig:chap3_6}
+  \includegraphics[width=0.6\linewidth]{./Figure/IMG_Chap3_6.png}
 \end{figure}
 
 其中$ r $是全局信息素挥发速率，且$ 0 < r < 1$。
@@ -364,19 +363,17 @@ public class AntAlgorithm {
 \subsection{服务器负载计算}
  服务器的负载值是衡量一个服务器运行状态和负载均衡状况的重要指标，也是进行虚拟机迁移的重要参考，本文还会根据服务器的负载值动态的标记服务器所处的负载域。计算一个服务器负载值所需要考虑的因素有很多，本文根据服务器的三种资源来计算服务器的负载值：CPU、内存和带宽。定义的服务器负载值的计算方式如下。
 
- \begin{figure}[ht]
+ \begin{figure}[htbp]
   \centering
-  \includegraphics{./Figure/IMG_Chap3_7.png}
-  \caption{}\label{Fig:chap3_7}
+  \includegraphics[width=0.8\linewidth]{./Figure/IMG_Chap3_7.png}
 \end{figure}
 
  \begin{figure}[ht]
   \centering
-  \includegraphics{./Figure/IMG_Chap3_8.png}
-  \caption{}\label{Fig:chap3_8}
+  \includegraphics[width=0.8\linewidth]{./Figure/IMG_Chap3_8.png}
 \end{figure}
 
-$w_cpu 、w_mem 、w_net $分别代表服务器的CPU、内存和带宽所占的权重。$U_cpu 、U_mem 、U_net $则分别代表服务器CPU 的利用率，服务器内存的利用率以及服务器带宽的利用率。$load $代表服务器的负载值，反映了服务器运行状态和负载均衡状况。
+$ w_{c,p,u} $、$ w_{m,e,m} $、$ w_{n,e,t} $分别代表服务器的CPU、内存和带宽所占的权重。$ U_{c,p,u} $、$ U_{m,e,m} $、$ U_{n,e,t} $则分别代表服务器CPU 的利用率，服务器内存的利用率以及服务器带宽的利用率。$ load $代表服务器的负载值，反映了服务器运行状态和负载均衡状况。
 
 \section{相关策略}
 蚂蚁在完成对数据中心的服务器搜索之后，蚂蚁内存中的低负载列表记录着低负载的迁移目标服务器列表。接下来在进行虚拟机迁移之前还需要解决两个问题。一是在需要虚拟机迁移的服务器上选择一台合适的虚拟机进行迁移，二是在蚂蚁内存中的低负载列表记录的迁移目标服务器列表选择一台服务器进行迁移。前者本文称作待迁移虚拟机的选择策略，后者本文称作目标服务器的迁移匹配策略。
@@ -386,61 +383,55 @@ $w_cpu 、w_mem 、w_net $分别代表服务器的CPU、内存和带宽所占的
 
 首先要确定使服务器负载过高的因素，常见的考虑因素主要有CPU、内存及带宽，那么就要计算三种因素各自所占用的比例，计算公式如下。
 
- \begin{figure}[ht]
+ \begin{figure}[htbp]
   \centering
-  \includegraphics{./Figure/IMG_Chap3_9.png}
-  \caption{}\label{Fig:chap3_9}
+  \includegraphics[width=0.6\linewidth]{./Figure/IMG_Chap3_9.png}
 \end{figure}
 
- \begin{figure}[ht]
+ \begin{figure}[htbp]
   \centering
-  \includegraphics{./Figure/IMG_Chap3_10.png}
-  \caption{}\label{Fig:chap3_10}
+  \includegraphics[width=0.6\linewidth]{./Figure/IMG_Chap3_10.png}
 \end{figure}
 
- \begin{figure}[ht]
+ \begin{figure}[htbp]
   \centering
-  \includegraphics{./Figure/IMG_Chap3_11.png}
-  \caption{}\label{Fig:chap3_11}
+  \includegraphics[width=0.6\linewidth]{./Figure/IMG_Chap3_11.png}
 \end{figure}
 
 计算得到值最大的即为导致服务器负载过高的决定的因素，然后根据这一因素决定需要迁移的虚拟机。为了同时考虑虚拟机迁移成本，还要考虑虚拟机占用的内存空间，那么就需要计算服务器的各个虚拟机的瓶颈资源和虚拟机占用内存的比值。定义变量RMR来表示使服务器负载过高的瓶颈资源与虚拟机占用内存的比值。按照使虚拟机负载过高的瓶颈资源不同的选择方式如下。
 
-\begin{enumerate}
+\begin{enumerate}[(1)]
     \item 如果CPU是使服务器负载过高的瓶颈资源，那么按照如下公式计算服务器每个虚拟机的RMR。
 
-     \begin{figure}[ht]
+     \begin{figure}[htbp]
       \centering
-      \includegraphics{./Figure/IMG_Chap3_12.png}
-      \caption{}\label{Fig:chap3_12}
+      \includegraphics[width=0.6\linewidth]{./Figure/IMG_Chap3_12.png}
     \end{figure}
 
-      其中$ VmU_(cpu(i)) $表示虚拟机的CPU利用率，$VmU_mem(i) $表示虚拟机占用服务器的内存比例。那么最后选择RMR的值最大的虚拟机作为待迁移的虚拟机。
+      其中$ VmU_{c,p,u,(,i,)} $表示虚拟机的CPU利用率，$VmU_{m,e,m,(,i,)} $表示虚拟机占用服务器的内存比例。那么最后选择RMR的值最大的虚拟机作为待迁移的虚拟机。
     \item 如果内存使服务器负载过高的瓶颈资源。那么选择占用内存最大的虚拟机作为待迁移的虚拟机。
     \item 如果带宽是使服务器负载过高的瓶颈资源，那么按照如下公式计算服务器每个虚拟机的RMR。
 
-    \begin{figure}[ht]
+    \begin{figure}[htbp]
       \centering
-      \includegraphics{./Figure/IMG_Chap3_13.png}
-      \caption{}\label{Fig:chap3_13}
+      \includegraphics[width=0.6\linewidth]{./Figure/IMG_Chap3_13.png}
     \end{figure}
 
-    其中 $net(i) $表示虚拟机的占用带宽，$mem(i) $表示虚拟机占用的内存。那么最后选择RMR的值最大的虚拟机作为待迁移的虚拟机。
+    其中 $ net(i) $表示虚拟机的占用带宽，$ mem(i) $表示虚拟机占用的内存。那么最后选择RMR的值最大的虚拟机作为待迁移的虚拟机。
 \end{enumerate}
 
 \subsection{目标服务器的迁移匹配策略}
-蚂蚁在完成对数据中心的服务器搜索之后，需要在蚂蚁内存中的低负载列表记录的迁移目标服务器列表选择一台服务器进行迁移。为了解决待迁移虚拟机需求资源和服务器剩余资源之间的匹配的问题，本文定义的一种匹配度$ Match_(vm-ser) $的概念，公式如下所示。
+蚂蚁在完成对数据中心的服务器搜索之后，需要在蚂蚁内存中的低负载列表记录的迁移目标服务器列表选择一台服务器进行迁移。为了解决待迁移虚拟机需求资源和服务器剩余资源之间的匹配的问题，本文定义的一种匹配度$ Match_{v,m,-,s,e,r} $的概念，公式如下所示。
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
-  \includegraphics{./Figure/IMG_Chap3_14.png}
-  \caption{}\label{Fig:chap3_14}
+  \includegraphics[width=0.8\linewidth]{./Figure/IMG_Chap3_14.png}
 \end{figure}
 
-其中，$SerR_cpu、SerR_mem、SerR_net $分别代表服务器剩余的CPU、内存和带宽资源。$VmR_cpu、VmR_mem、VmR_net $则分别代表虚拟机需要的CPU、内存和带宽资源。如果$ Match_(vm_i  - ser_j ) < 0 $则说明待迁移虚拟机与该目标服务器匹配失败，即虚拟机需要的资源超过了服务器的剩余资源。
+其中，$ SerR_{c,p,u} $、$ SerR_{m,e,m} $、$ SerR_{n,e,t} $分别代表服务器剩余的CPU、内存和带宽资源。$ VmR_{c,p,u} $、$ VmR_{m,e,m} $、$ VmR_{n,e,t} $则分别代表虚拟机需要的CPU、内存和带宽资源。如果$ Match_{v,m_i - s,e,r_j} < 0 $则说明待迁移虚拟机与该目标服务器匹配失败，即虚拟机需要的资源超过了服务器的剩余资源。
 
 待迁移虚拟机与目标服务器列表的匹配过程如下。
-\begin{enumerate}
+\begin{enumerate}[(1)]
     \item 从蚂蚁内存的低负载服务器列表中获取迁移目标服务器。
     \item 依次遍历每一个服务器计算其匹配度。
     \item 对服务器的匹配度进行排序，取匹配度最大的服务器作为虚拟机迁移的目标服务器。
@@ -459,7 +450,7 @@ $w_cpu 、w_mem 、w_net $分别代表服务器的CPU、内存和带宽所占的
 
 CloudSim 的核心架构如图 \ref{Fig:chap4_1} 所示。
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
   \includegraphics{./Figure/IMG_Chap4_1.png}
   \caption{CloudSim 的核心架构}\label{Fig:chap4_1}
@@ -470,7 +461,7 @@ CloudSim 的核心架构如图 \ref{Fig:chap4_1} 所示。
  \section{实验环境搭建}
 云数据中心不断的运转，各个实体（Vm，Host等）每时每刻的状态都在变化，CloudSim 通过基于事件的机制对数据中心各个实体的状态变化进行模拟。数据中心与数据中心代理之间的事件传递过程如图 \ref{Fig:chap4_2} 所示。
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
   \includegraphics{./Figure/IMG_Chap4_2.png}
   \caption{事件传递机制}\label{Fig:chap4_2}
@@ -480,7 +471,7 @@ CloudSim 的核心架构如图 \ref{Fig:chap4_1} 所示。
 
 数据中心执行任务的过程也稍显复杂，任务单元的处理由各自的虚拟机处理.因此，必须在每个模拟步骤中不断更新和监控任务单元的进度。在每个模拟步骤中，每个数据中心实体都为其管理的每个主机调用一个名为updateVmsProcessing（）的方法。在此之后，当前的已联系的vms更新处理主机的活动任务。此方法的输入参数类型是当前模拟时间,返回参数类型是当前正在运行的任务的下一个预期完成时间.在主机级别，调用updateVMsprocessing（）会触发updateCloudletsprocessing（）方法，该方法指示每个VM更新其任务单元状态（完成、挂起、执行）数据中心实体。此方法实现了与前面针对updateVmsProcessing（）描述的类似的逻辑，但在VM级别。调用此方法后，vms将返回下一个预期的他们当前管理的任务单元的完成时间。图 \ref{Fig:chap4_3} 以序列图的形式描述了这个过程。
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
   \includegraphics{./Figure/IMG_Chap4_3.png}
   \caption{任务执行过程}\label{Fig:chap4_3}
@@ -495,18 +486,16 @@ CloudSim 的核心架构如图 \ref{Fig:chap4_1} 所示。
  \section{实验结果与分析}
 如何衡量本文设计的面向负载均衡的虚拟机迁移框架的负载均衡效果也是本文研究的重要内容。本文提出了一种数据中心负载均衡值的计算方法，公式如下。
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
-  \includegraphics{./Figure/IMG_Chap4_4.png}
-  \caption{}\label{Fig:chap4_4}
+  \includegraphics[width=0.6\linewidth]{./Figure/IMG_Chap4_4.png}
 \end{figure}
 
-其中，$num $表示数据中心服务器的数量，$L_it $表示在第$ t $个调度间隔服务器 i 的负载均衡值，$L̅_t $表示在第$ t $个调度间隔数据中心的平均负载均衡值。$L̅_t $的定义如下。
+其中，$ num $表示数据中心服务器的数量，$ L_{i,t} $表示在第$ t $个调度间隔服务器 i 的负载均衡值，$ L̅_t $表示在第$ t $个调度间隔数据中心的平均负载均衡值。$ L̅_t $的定义如下。
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
-  \includegraphics{./Figure/IMG_Chap4_5.png}
-  \caption{}\label{Fig:chap4_5}
+  \includegraphics[width=0.6\linewidth]{./Figure/IMG_Chap4_5.png}
 \end{figure}
 
 根据以上公式并选取虚拟机迁移框架的几个重要参数进行虚拟机迁移实验，计算实验结果并对实验结果进行评估。
@@ -543,18 +532,16 @@ CloudSim 的核心架构如图 \ref{Fig:chap4_1} 所示。
 
 除了信息素的挥发速率外，对框架起到重要影响的参数还有蚂蚁的步长。如果蚂蚁的步长过短，可能搜集的低负载服务器信息不足，导致蚂蚁再次搜索，影响虚拟机迁移的效率。如果蚂蚁的步长过长，会导致蚂蚁的搜索时间过长，也同样会影响虚拟机迁移的效率。最终都会影响到数据中心的负载均衡状态。所以我们要找到一个蚂蚁搜索的合适的步长，以及研究蚂蚁的步长对数据中心达到负载均衡的效率的影响。所以根据上文的数据中心的负载均衡值来定义一个数据中心的负载均衡效率公式，如下所示。
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
-  \includegraphics{./Figure/IMG_Chap4_6.png}
-  \caption{}\label{Fig:chap4_6}
+  \includegraphics[width=0.6\linewidth]{./Figure/IMG_Chap4_6.png}
 \end{figure}
 
-$T $表示数据中心的负载均衡值达到$ L_T $所花费的时间，$L_0 $表示数据中心的初始负载均衡值，$L_T $表示数据中心在$ T $时刻的负载均衡值。设置数据中心的调度时间间隔为 300s，数据中心运行的总时间为 3600s，计算每个调度时间点的 L_eff，绘制的蚂蚁的步长对数据中心的负载均衡效率的影响统计图如图所示。
+$ T $表示数据中心的负载均衡值达到$ L_T $所花费的时间，$ L_0 $表示数据中心的初始负载均衡值，$ L_T $表示数据中心在$ T $时刻的负载均衡值。设置数据中心的调度时间间隔为 300s，数据中心运行的总时间为 3600s，计算每个调度时间点的$ L_{e,f,f} $，绘制的蚂蚁的步长对数据中心的负载均衡效率的影响统计图如图所示。
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
   \centering
   \includegraphics{./Figure/IMG_Chap4_7.png}
-  \caption{}\label{Fig:chap4_7}
 \end{figure}
 
 根据上图分析可以得出以下结论：若蚂蚁的步长过短，如步长$ s = 5$，可能搜集的低负载服务器信息不足，导致蚂蚁再次搜索，影响虚拟机迁移的效率。若蚂蚁的步长过长，如$ s = 15 $，会导致蚂蚁的搜索时间过长，也同样会影响虚拟机迁移的效率。当蚂蚁的程度在一个比较合适的值时，比如$ s = 10 $，则在蚂蚁的搜索效率和虚拟机迁移的虚拟机的迁移的效率之间可以找到适当的平衡，使数据中心达到负载均衡的效率达到一个比较高的水平。
@@ -565,7 +552,7 @@ $T $表示数据中心的负载均衡值达到$ L_T $所花费的时间，$L_0 $
 \chapter{总结与展望}
 本文经过前四章的研究，深入介绍了本文设计的面向负载均衡的虚拟机动态迁移框架并且通过模拟实验对框架的负载均衡效果进行了比较深入的分析，得出了本文设计的虚拟机动态迁移框架具有比较好的负载均衡效果的结论。下面总结一下本文完成的主要工作。
 
-\begin{enumerate}
+\begin{enumerate}[(1)]
     \item 学习了云计算及虚拟化的相关概念，研究虚拟机动态迁移的技术。
     \item 设计了虚拟机动态迁移框架。借鉴蚁群算法的思想，利用蚂蚁在搜索过程中获取并记录服务器信息，并根据信息素等信息不断优化搜索路径，找到适合迁移的虚拟机。并通过设置不同的阙值来定义一个服务器的负载状态模型，通过定时计算服务器的负载值来动态观察服务器所处的负载域，当服务器过载便会生成蚂蚁去搜寻可以迁移的服务器。最终通过一定的选择策略来选择待迁移服务器上适合迁移的虚拟机，以及一定的迁移策略来选择适合迁移的目的服务器，最终完成虚拟机的迁移过程。
     \item 扩展了云计算模拟平台 CloudSim，仿真云计算环境下的数据中心、服务器以及虚拟机等云计算基础设施，并应用本文提出的虚拟机迁移框架进行虚拟机迁移的模拟，最终对这个虚拟机迁移框架的性能及其最终的负载均衡效果进行了分析与评估。
@@ -573,7 +560,7 @@ $T $表示数据中心的负载均衡值达到$ L_T $所花费的时间，$L_0 $
 
 但是，由于时间以及个人能力的关系，本文的研究工作还有一些不足之处，还有很多可以进行深入研究的方面，主要的方面如下：
 
-\begin{enumerate}
+\begin{enumerate}[(1)]
     \item 对于服务器的负载可以根据历史的服务器资源相关数据进行有效预测，这样可以提早进行虚拟机迁移相关工作，提高虚拟机迁移效率。
     \item 对于蚂蚁的步长可以根据当前数据中心负载情况进行动态计算，针对负载情况更加灵活的进行搜索，提高搜索以及虚拟机迁移效率。
     \item 对于虚拟机迁移过程中的数据安全问题也可以进行深入研究，甚至可以作为一个课题单独进行研究。
