@@ -1,8 +1,10 @@
 %!TEX root = ../Demo.tex
 % 中文摘要
 \begin{abstract}
-  随着云计算技术的发展，虚拟化技术已经成为提高云平台资源利用率的有效手段。随着数据中心的服务器不断运行，服务器中虚拟机会不断的开启、关闭，导致某些服务器负载过重，影响服务质量；某些服务器却空闲，浪费服务器资源。通过虚拟机的动态迁移技术，将高负载服务器上运行的虚拟机迁移至空闲或低负载服务器上，从而实现服务器的负载均衡。
+随着云计算技术的发展，虚拟化技术已经成为提高云平台资源利用率的有效手段。随着数据中心的服务器不断运行，服务器中虚拟机会不断的开启、关闭，导致某些服务器负载过重，影响服务质量；某些服务器却空闲，浪费服务器资源。通过虚拟机的动态迁移技术，将高负载服务器上运行的虚拟机迁移至空闲或低负载服务器上，从而实现服务器的负载均衡。
+
 本文根据蚁群算法的思想设计了一种面向负载均衡的虚拟机动态迁移框架。首先进行框架的总体设计，然后对框架的各个模块进行详细地 设计，其中蚂蚁算法模块是框架的核心，其核心思想是利用蚂蚁在搜索过程中获取并记录服务器信息，并根据信息素等信息不断优化搜索路径，找到适合迁移的虚拟机。并通过设置不同的阙值来定义一个服务器的负载状态模型，通过定时计算服务器的负载值来动态观察服务器所处的负载域，当服务器过载便会生成蚂蚁去搜寻可以迁移的服务器。最终通过一定的选择策略来选择待迁移服务器上适合迁移的虚拟机，以及一定的迁移策略来选择适合迁移的目的服务器，最终完成虚拟机的迁移过程。一个数据中心内的所有服务器，不断重复这一迁移过程来达到整个数据中心内的服务器负载均衡。
+
 最后通过扩展云计算基础架构和服务的建模和仿真框架CloudSim，仿真云计算环境下的数据中心、服务器以及虚拟机等云计算基础设施，并应用本文提出的虚拟机迁移框架进行虚拟机迁移的模拟，最终对这个虚拟机迁移框架的性能及其最终的负载均衡效果进行分析与评估。
 
 \end{abstract}
@@ -10,8 +12,10 @@
 
 % 英文摘要
 \begin{enabstract}
-  With the development of cloud computing technology, virtualization technology has become an effective means to improve the utilization of cloud platform resources. As the servers in the data center continue to run, the virtual machines in the server are continuously turned on and off, causing some servers to be overloaded and affecting the quality of service; some servers are idle and waste server resources. The virtual machine's dynamic migration technology is used to migrate the virtual machines running on the high-load servers to idle or low-load servers to achieve load balancing of the servers.
+With the development of cloud computing technology, virtualization technology has become an effective means to improve the utilization of cloud platform resources. As the servers in the data center continue to run, the virtual machines in the server are continuously turned on and off, causing some servers to be overloaded and affecting the quality of service; some servers are idle and waste server resources. The virtual machine's dynamic migration technology is used to migrate the virtual machines running on the high-load servers to idle or low-load servers to achieve load balancing of the servers.
+
 According to the idea of ant colony algorithm, this paper designs a virtual machine dynamic migration framework for load balancing. Firstly, the overall design of the framework is carried out, and then the various modules of the framework are designed in detail. The ant algorithm module is the core of the framework. The core idea is to use ants to obtain and record server information during the search process, and continuously based on information such as pheromones. Optimize your search path to find a virtual machine that is suitable for migration. And by setting different thresholds to define a load state model of a server, by dynamically calculating the load value of the server to dynamically observe the load domain where the server is located, when the server is overloaded, an ant is generated to search for a server that can be migrated. Finally, a certain selection strategy is adopted to select a virtual machine suitable for migration on the server to be migrated, and a certain migration strategy to select a destination server suitable for migration, and finally complete the migration process of the virtual machine. All servers in a data center continue to replicate this migration process to achieve server load balancing across the data center.
+
 Finally, CloudSim, which is a modeling and simulation framework for cloud computing infrastructure and services, is used to simulate cloud computing infrastructure such as data centers, servers, and virtual machines in cloud computing environments, and the virtual machine migration framework proposed in this paper is used for virtual machine migration. Simulation, and finally analyze and evaluate the performance of this virtual machine migration framework and its final load balancing effect.
 
 \end{enabstract}
