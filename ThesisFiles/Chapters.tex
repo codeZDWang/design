@@ -73,7 +73,7 @@
     大部分的应用程序都是使用由许多库组成的API（Application Programming Interface）来设计，使用动态链接的方式用于隐藏操作系统的细节，目的是提供程序员更简单的工作。这也产生了一种新的虚拟化方式，使用不同的API与不同操作系统底层的ABI（Application Binary Interface）来进行模拟的工作。这个分类底下代表性的有Wine以及WSL（Windows Subsystem for Linux）。
 \end{enumerate}
 
-\begin{figure}[ht]
+\begin{figure}[htb]
   \centering
   \includegraphics{./Figure/IMG_Chap2_1.png}
   \caption{虚拟技术按抽象程度来分为五个层次}\label{Fig:chap2_1}
@@ -91,21 +91,19 @@ Gerald J.Popek和Robert P.Goldberg 在他们1974年的文章“Formal Requiremen
 这种虚拟机管理程序直接运行在主机的硬件上，这样便可以直接控制硬件同时对客体操作系统进行管理。
 
 特点：
-\begin{enumerate}
-    \item 需要硬件支持
-    \item 虚拟机监视器作为主操作系统
-    \item 运行效率高
-\end{enumerate}
+
+    (1). 需要硬件支持
+    (2). 虚拟机监视器作为主操作系统
+    (3). 运行效率高
 
 举例：
-\begin{enumerate}
-    \item VMware5.5及以后版本
-    \item Xen3.0以后版本
-    \item Virtual PC 2005
-    \item KVM
-\end{enumerate}
 
-\begin{figure}[ht]
+    (1). VMware5.5及以后版本
+    (2). Xen3.0以后版本
+    (3). Virtual PC 2005
+    (4). KVM
+
+\begin{figure}[htb]
   \centering
   \includegraphics{./Figure/IMG_Chap2_2.png}
   \caption{VMM-Type1}\label{Fig:chap2_2}
@@ -116,19 +114,17 @@ Gerald J.Popek和Robert P.Goldberg 在他们1974年的文章“Formal Requiremen
 这种虚拟机管理程序运行在主机的操作系统上，跟其他计算机程序没有明显的区别。
 
 特点：
-\begin{enumerate}
-    \item 虚拟机监视器作为应用程序运行在主操作系统环境内
-    \item 运行效率一般较类型I低
-\end{enumerate}
+
+    (1). 虚拟机监视器作为应用程序运行在主操作系统环境内
+    (2). 运行效率一般较类型I低
 
 举例：
-\begin{enumerate}
-    \item VMware5.5以前版本
-    \item Xen3.0以前版本
-    \item Virtual PC 2004
-\end{enumerate}
 
-\begin{figure}[ht]
+    (1). VMware5.5以前版本
+    (2). Xen3.0以前版本
+    (3). Virtual PC 2004
+
+\begin{figure}[htb]
   \centering
   \includegraphics{./Figure/IMG_Chap2_3.png}
   \caption{VMM-Type2}\label{Fig:chap2_3}
@@ -163,7 +159,7 @@ IO状态迁移和CPU状态迁移类似，都可以直接采用停机拷贝的方
 
 Pre-copy算法的过程：
 
-\begin{figure}[ht]
+\begin{figure}[htb]
   \centering
   \includegraphics{./Figure/IMG_Chap2_4.png}
   \caption{Pre-copy算法}\label{Fig:chap2_4}
@@ -175,7 +171,7 @@ Pre-copy算法的过程：
 
 Post-copy算法的过程：
 
-\begin{figure}[ht]
+\begin{figure}[htb]
   \centering
   \includegraphics{./Figure/IMG_Chap2_5.png}
   \caption{Post-copy算法}\label{Fig:chap2_5}
@@ -192,7 +188,7 @@ Post-copy算法的过程：
 
 如图 \ref{Fig:chap2_6} 中所示的实验设置。存在蚂蚁行走的路径（例如从食物源A到巢E，反之亦然）。在路径上放置障碍物，阻断蚂蚁的行走路线。因此，在B位置，蚂蚁必须决定是向左还是向左转。选择受前蚂蚁留下的信息素痕迹强度的影响。在正确的路径上更高水平的信息素使蚂蚁具有更强的刺激，因此更有可能向右转。由于在两个路径上没有先前的信息素，到达B点（或D点）的第一个蚂蚁具有相同的向右或向左转的概率。因为路径BCD比BHD短，所以跟随它的第一只蚂蚁将在路径BHD之后的第一只蚂蚁之前到达D。结果是从E到D返回的蚂蚁将在路径DCB上找到更强的路径，这是由于偶然决定通过DCBA接近障碍的所有蚂蚁的一半以及通过BCD来到的已经到达的蚂蚁：他们将因此，优选（概率上）路径DCB到路径DHB。因此，每单位时间后路径BCD之后的蚂蚁数量将高于BHD之后的蚂蚁数量。这导致较短路径上的信息素数量比较长路径上的信息素数量增长得更快，因此任何单个蚂蚁选择路径遵循的概率很快偏向较短路径。最终的结果是，所有蚂蚁很快就会选择较短的路径。
 
-\begin{figure}[ht]
+\begin{figure}[htb]
   \centering
   \includegraphics{./Figure/IMG_Chap2_6.png}
   \caption{蚁群算法}\label{Fig:chap2_6}
@@ -206,7 +202,7 @@ Post-copy算法的过程：
 \section{总体设计}
 本文根据蚁群算法设计了一种面向负载均衡的虚拟机动态迁移框架，在一个数据中心的所有服务器中都部署有该动态迁移模块。服务器可以通过该框架决定何时进行虚拟机的迁移，如何选择服务器中的虚拟机进行迁移以及如何选择迁移的目标服务器等。智能蚂蚁作为服务器间的通信媒介起到了重要的作用，它不但能够记录相关服务器的信息以便于后续的迁移决策而且还能按照一定的规律智能地选择合适的服务器进行搜索，有效提高虚拟机迁移的效率以及通过虚拟机迁移后整个数据中心的负载均衡程度。整体的数据中心互联视图如图 \ref{Fig:chap3_1} 所示。
 
-\begin{figure}[ht]
+\begin{figure}[htb]
   \centering
   \includegraphics{./Figure/IMG_Chap3_1.png}
   \caption{数据中心互联视图}\label{Fig:chap3_1}
@@ -215,7 +211,7 @@ Post-copy算法的过程：
 \section{模块设计}
 整个动态迁移框架主要包括以下几个模块：蚂蚁服务模块、蚂蚁算法模块、负载模块、决策模块以及配置库等。框架的体系结构如图 \ref{Fig:chap3_2} 所示。
 
-\begin{figure}[ht]
+\begin{figure}[htb]
   \centering
   \includegraphics{./Figure/IMG_Chap3_2.png}
   \caption{虚拟机动态迁移框架的体系结构}\label{Fig:chap3_2}
@@ -226,7 +222,7 @@ Post-copy算法的过程：
 \subsection{蚂蚁服务模块}
 蚂蚁服务模块负责与其他模块进行交互，对整个虚拟机动态迁移框架进行整合协调与调度，确保框架的各个模块有序地运行。蚂蚁服务模块的主要功能如图 \ref{Fig:chap3_3} 所示。
 
-\begin{figure}[ht]
+\begin{figure}[htb]
   \centering
   \includegraphics{./Figure/IMG_Chap3_3.png}
   \caption{蚂蚁服务模块}\label{Fig:chap3_3}
@@ -235,7 +231,7 @@ Post-copy算法的过程：
 \subsection{蚂蚁的产生及初始化}
 根据服务的负载值，本文设计了一个服务器负载域状态模型，将服务器的负载分为四个状态域：低负载域、平衡域、过载域和超载域。如图 \ref{Fig:chap3_4} 所示。
 
-\begin{figure}[ht]
+\begin{figure}[htb]
   \centering
   \includegraphics{./Figure/IMG_Chap3_4.png}
   \caption{服务器负载状态域模型}\label{Fig:chap3_4}
@@ -301,7 +297,7 @@ public class Ant {
 
 我们前面已经详细论述了蚂蚁内存空间的相关服务器列表及其初始化，蚂蚁实体中还有一个重要的功能就是自己按照一定的算法去选择下一个要搜索的服务器。蚂蚁搜索下一个目标服务器时并不是毫无目的地寻找，而是根据一定的信息按照一定的概率去搜索。本文根据数据中心服务器的相关特点综合考虑了蚂蚁在选择下一个要搜索的服务器时所要考虑的因素。除了信息素的浓度之外，还要根据服务器的负载值以及服务器的网络状态信息等因素综合选择蚂蚁下一个要搜索的服务器。在蚁群算法当中，信息素浓度越高，蚂蚁选择该条路径的概率就越大。在本文的应用场景当中，还是借鉴这种思想，蚂蚁频繁搜索的服务器应该是负载较低的服务器，那么蚂蚁留下的信息素浓度就会越大，相应的服务器上的信息素的浓度就会高于负载较高的服务器，那么后续蚂蚁也会大概率选择这些服务器。除此之外服务器的负载值和网络状况也是重要的考虑因素。服务器的负载值高，表明服务器需要进行虚拟机迁移操作，那么蚂蚁应该避免搜索负载值高的服务器，负载值越低，蚂蚁搜索该服务器的概率越大。另外蚂蚁因该优先选择服务器剩余带宽较大的服务器，以便于提高虚拟机迁移的效率。所以综合以上考虑的因素，最终根据概率选择蚂蚁需要搜索的下一个服务器。根据蚁群算法的相关知识，蚂蚁在 i 节点选择 j 节点的概率如下公式所示。
 
-\begin{figure}[ht]
+\begin{figure}[htb]
   \centering
   \includegraphics[width=0.8\linewidth]{./Figure/IMG_Chap3_5.png}
 \end{figure}
@@ -333,7 +329,7 @@ public class AntAlgorithm {
 
 为了及时反应信息素的变化，在蚂蚁搜索服务器的过程中会实时地更新服务器的信息素浓度。全局信息素更新方式如下公式所示。
 
-\begin{figure}[ht]
+\begin{figure}[htb]
   \centering
   \includegraphics[width=0.3\linewidth]{./Figure/IMG_Chap3_6.png}
 \end{figure}
@@ -343,14 +339,14 @@ public class AntAlgorithm {
 \subsection{服务器负载计算}
  服务器的负载值是衡量一个服务器运行状态和负载均衡状况的重要指标，也是进行虚拟机迁移的重要参考，本文还会根据服务器的负载值动态的标记服务器所处的负载域。计算一个服务器负载值所需要考虑的因素有很多，本文根据服务器的三种资源来计算服务器的负载值：CPU、内存和带宽。定义的服务器负载值的计算方式如下。
 
- \begin{figure}[ht]
+ \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.5\linewidth]{./Figure/IMG_Chap3_7.png}
+  \includegraphics[width=0.6\linewidth]{./Figure/IMG_Chap3_7.png}
 \end{figure}
 
- \begin{figure}[ht]
+ \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.4\linewidth]{./Figure/IMG_Chap3_8.png}
+  \includegraphics[width=0.5\linewidth]{./Figure/IMG_Chap3_8.png}
 \end{figure}
 
 $ w_{cpu} $、$ w_{mem} $、$ w_{net} $分别代表服务器的CPU、内存和带宽所占的权重。$ U_{cpu} $、$ U_{mem} $、$ U_{net} $则分别代表服务器CPU 的利用率，服务器内存的利用率以及服务器带宽的利用率。$ load $代表服务器的负载值，反映了服务器运行状态和负载均衡状况。
@@ -363,17 +359,17 @@ $ w_{cpu} $、$ w_{mem} $、$ w_{net} $分别代表服务器的CPU、内存和�
 
 首先要确定使服务器负载过高的因素，常见的考虑因素主要有CPU、内存及带宽，那么就要计算三种因素各自所占用的比例，计算公式如下。
 
- \begin{figure}[ht]
+ \begin{figure}[htb]
   \centering
   \includegraphics[width=0.3\linewidth]{./Figure/IMG_Chap3_9.png}
 \end{figure}
 
- \begin{figure}[ht]
+ \begin{figure}[htb]
   \centering
   \includegraphics[width=0.3\linewidth]{./Figure/IMG_Chap3_10.png}
 \end{figure}
 
- \begin{figure}[ht]
+ \begin{figure}[htb]
   \centering
   \includegraphics[width=0.3\linewidth]{./Figure/IMG_Chap3_11.png}
 \end{figure}
@@ -382,10 +378,10 @@ $ w_{cpu} $、$ w_{mem} $、$ w_{net} $分别代表服务器的CPU、内存和�
 
     (1). 如果CPU是使服务器负载过高的瓶颈资源，那么按照如下公式计算服务器每个虚拟机的RMR。
 
-     \begin{figure}[ht]
+     \begin{figure}[htb]
       \centering
       \includegraphics[width=0.3\linewidth]{./Figure/IMG_Chap3_12.png}
-    \end{figure}
+     \end{figure}
 
       其中$ VmU_{cpu(i)} $表示虚拟机的CPU利用率，$VmU_{mem(i)} $表示虚拟机占用服务器的内存比例。那么最后选择RMR的值最大的虚拟机作为待迁移的虚拟机。
     
@@ -393,7 +389,7 @@ $ w_{cpu} $、$ w_{mem} $、$ w_{net} $分别代表服务器的CPU、内存和�
     
     (3). 如果带宽是使服务器负载过高的瓶颈资源，那么按照如下公式计算服务器每个虚拟机的RMR。
 
-    \begin{figure}[ht]
+    \begin{figure}[htb]
       \centering
       \includegraphics[width=0.3\linewidth]{./Figure/IMG_Chap3_13.png}
     \end{figure}
@@ -403,7 +399,7 @@ $ w_{cpu} $、$ w_{mem} $、$ w_{net} $分别代表服务器的CPU、内存和�
 \subsection{目标服务器的迁移匹配策略}
 蚂蚁在完成对数据中心的服务器搜索之后，需要在蚂蚁内存中的低负载列表记录的迁移目标服务器列表选择一台服务器进行迁移。为了解决待迁移虚拟机需求资源和服务器剩余资源之间的匹配的问题，本文定义的一种匹配度$ Match_{vm-ser} $的概念，公式如下所示。
 
-\begin{figure}[ht]
+\begin{figure}[htb]
   \centering
   \includegraphics[width=0.8\linewidth]{./Figure/IMG_Chap3_14.png}
 \end{figure}
@@ -433,7 +429,7 @@ $ w_{cpu} $、$ w_{mem} $、$ w_{net} $分别代表服务器的CPU、内存和�
 
 CloudSim 的核心架构如图 \ref{Fig:chap4_1} 所示。
 
-\begin{figure}[ht]
+\begin{figure}[htb]
   \centering
   \includegraphics{./Figure/IMG_Chap4_1.png}
   \caption{CloudSim 的核心架构}\label{Fig:chap4_1}
@@ -444,7 +440,7 @@ CloudSim 的核心架构如图 \ref{Fig:chap4_1} 所示。
  \section{实验环境搭建}
 云数据中心不断的运转，各个实体（Vm，Host等）每时每刻的状态都在变化，CloudSim 通过基于事件的机制对数据中心各个实体的状态变化进行模拟。数据中心与数据中心代理之间的事件传递过程如图 \ref{Fig:chap4_2} 所示。
 
-\begin{figure}[ht]
+\begin{figure}[htb]
   \centering
   \includegraphics{./Figure/IMG_Chap4_2.png}
   \caption{事件传递机制}\label{Fig:chap4_2}
@@ -454,7 +450,7 @@ CloudSim 的核心架构如图 \ref{Fig:chap4_1} 所示。
 
 数据中心执行任务的过程也稍显复杂，任务单元的处理由各自的虚拟机处理.因此，必须在每个模拟步骤中不断更新和监控任务单元的进度。在每个模拟步骤中，每个数据中心实体都为其管理的每个主机调用一个名为updateVmsProcessing（）的方法。在此之后，当前的已联系的vms更新处理主机的活动任务。此方法的输入参数类型是当前模拟时间,返回参数类型是当前正在运行的任务的下一个预期完成时间.在主机级别，调用updateVMsprocessing（）会触发updateCloudletsprocessing（）方法，该方法指示每个VM更新其任务单元状态（完成、挂起、执行）数据中心实体。此方法实现了与前面针对updateVmsProcessing（）描述的类似的逻辑，但在VM级别。调用此方法后，vms将返回下一个预期的他们当前管理的任务单元的完成时间。图 \ref{Fig:chap4_3} 以序列图的形式描述了这个过程。
 
-\begin{figure}[ht]
+\begin{figure}[htb]
   \centering
   \includegraphics{./Figure/IMG_Chap4_3.png}
   \caption{任务执行过程}\label{Fig:chap4_3}
@@ -469,16 +465,16 @@ CloudSim 的核心架构如图 \ref{Fig:chap4_1} 所示。
  \section{实验结果与分析}
 如何衡量本文设计的面向负载均衡的虚拟机迁移框架的负载均衡效果也是本文研究的重要内容。本文提出了一种数据中心负载均衡值的计算方法，公式如下。
 
-\begin{figure}[ht]
+\begin{figure}[htb]
   \centering
   \includegraphics[width=0.4\linewidth]{./Figure/IMG_Chap4_4.png}
 \end{figure}
 
 其中，$ num $表示数据中心服务器的数量，$ L_{it} $表示在第$ t $个调度间隔服务器 i 的负载均衡值，$ \overline{L}_t $表示在第$ t $个调度间隔数据中心的平均负载均衡值。$ \overline{L}_t $的定义如下。
 
-\begin{figure}[ht]
+\begin{figure}[htb]
   \centering
-  \includegraphics[width=0.25\linewidth]{./Figure/IMG_Chap4_5.png}
+  \includegraphics[width=0.2\linewidth]{./Figure/IMG_Chap4_5.png}
 \end{figure}
 
 根据以上公式并选取虚拟机迁移框架的几个重要参数进行虚拟机迁移实验，计算实验结果并对实验结果进行评估。
@@ -515,14 +511,14 @@ CloudSim 的核心架构如图 \ref{Fig:chap4_1} 所示。
 
 除了信息素的挥发速率外，对框架起到重要影响的参数还有蚂蚁的步长。如果蚂蚁的步长过短，可能搜集的低负载服务器信息不足，导致蚂蚁再次搜索，影响虚拟机迁移的效率。如果蚂蚁的步长过长，会导致蚂蚁的搜索时间过长，也同样会影响虚拟机迁移的效率。最终都会影响到数据中心的负载均衡状态。所以我们要找到一个蚂蚁搜索的合适的步长，以及研究蚂蚁的步长对数据中心达到负载均衡的效率的影响。所以根据上文的数据中心的负载均衡值来定义一个数据中心的负载均衡效率公式，如下所示。
 
-\begin{figure}[ht]
+\begin{figure}[htb]
   \centering
-  \includegraphics[width=0.25\linewidth]{./Figure/IMG_Chap4_6.png}
+  \includegraphics[width=0.2\linewidth]{./Figure/IMG_Chap4_6.png}
 \end{figure}
 
 $ T $表示数据中心的负载均衡值达到$ L_T $所花费的时间，$ L_0 $表示数据中心的初始负载均衡值，$ L_T $表示数据中心在$ T $时刻的负载均衡值。设置数据中心的调度时间间隔为 300s，数据中心运行的总时间为 3600s，计算每个调度时间点的$ L_{eff} $，绘制的蚂蚁的步长对数据中心的负载均衡效率的影响统计图如图所示。
 
-\begin{figure}[ht]
+\begin{figure}[htb]
   \centering
   \includegraphics{./Figure/IMG_Chap4_7.png}
 \end{figure}
