@@ -250,37 +250,27 @@ Post-copy算法的过程：
 
 \begin{lstlisting}[language=C,caption={蚂蚁实体},label=Code:java]
 public class Ant {
-
     // 蚂蚁剩余步数
     private int remanentSteps;
-
     // 负载列表中记录着蚂蚁搜索过的所有服务器的负载信息
     private List<Server> loadList;
-
     // 低负载列表中记录着负载较低的服务器信息
     private List<Server> underLoadedList;
-
     // 蚂蚁未经过的服务器
     private List<Server> allowedList;
-
     private Server currentServer;
-
     // 蚂蚁的初始化
     public void initAnt(Server server) {
             
         }
-
     // 选择蚂蚁下一个要搜索的服务器
     public Server selectNextServer() {
-
-       // 概率矩阵
+        // 概率矩阵
         List<Float> pList = new ArrayList<>();
-
         Datacenter datacenter = currentServer.getDatacenter();
         List<Server> serverList = datacenter.getHostList();
         for (Server server : serverList) {
              boolean flag = false;
-
              // 计算概率矩阵
             for (Server server1 : allowedList) {
                 if (server.getId() == server1.getId()) {
@@ -289,7 +279,6 @@ public class Ant {
                 }
             }
         }
-
         // 轮盘赌选择下一个服务器
         Random random = new Random(System.currentTimeMillis());
         float selectP = random.nextFloat();
@@ -302,7 +291,6 @@ public class Ant {
                 break;
             }
         }
-
         allowedList.remove(selectServer);
         loadList.add(selectServer);
         currentServer = selectServer;
@@ -324,16 +312,12 @@ $ τ_{ij} (t) $表示节点$ i $观察到的节点$ j $的信息素浓度，$all
 
 \begin{lstlisting}[language=C,caption={蚂蚁算法},label=Code:java]
 public class AntAlgorithm {
-
     public void doSearchServer(Ant ant) {
-
         for (int step = CommonConfig.steps; step > 0; step--) {
             Server server = ant.selectNextServer();
-
             if (server.getLoad() <= CommonConfig.threshold1) {
                 ant.getUnderLoadedList().add(server);
             }
-
             Datacenter datacenter = server.getDatacenter();
             List<Server> serverList = datacenter.getHostList();
             // 信息素挥发
@@ -396,9 +380,7 @@ $ w_{cpu} $、$ w_{mem} $、$ w_{net} $分别代表服务器的CPU、内存和�
 
 计算得到值最大的即为导致服务器负载过高的决定的因素，然后根据这一因素决定需要迁移的虚拟机。为了同时考虑虚拟机迁移成本，还要考虑虚拟机占用的内存空间，那么就需要计算服务器的各个虚拟机的瓶颈资源和虚拟机占用内存的比值。定义变量RMR来表示使服务器负载过高的瓶颈资源与虚拟机占用内存的比值。按照使虚拟机负载过高的瓶颈资源不同的选择方式如下。
 
-\usepackage{enumerate}
-\begin{enumerate}[(1)]
-    \item 如果CPU是使服务器负载过高的瓶颈资源，那么按照如下公式计算服务器每个虚拟机的RMR。
+    (1). 如果CPU是使服务器负载过高的瓶颈资源，那么按照如下公式计算服务器每个虚拟机的RMR。
 
      \begin{figure}[htbp]
       \centering
@@ -406,8 +388,10 @@ $ w_{cpu} $、$ w_{mem} $、$ w_{net} $分别代表服务器的CPU、内存和�
     \end{figure}
 
       其中$ VmU_{cpu(i)} $表示虚拟机的CPU利用率，$VmU_{mem(i)} $表示虚拟机占用服务器的内存比例。那么最后选择RMR的值最大的虚拟机作为待迁移的虚拟机。
-    \item 如果内存使服务器负载过高的瓶颈资源。那么选择占用内存最大的虚拟机作为待迁移的虚拟机。
-    \item 如果带宽是使服务器负载过高的瓶颈资源，那么按照如下公式计算服务器每个虚拟机的RMR。
+    
+    (2). 如果内存使服务器负载过高的瓶颈资源。那么选择占用内存最大的虚拟机作为待迁移的虚拟机。
+    
+    (3). 如果带宽是使服务器负载过高的瓶颈资源，那么按照如下公式计算服务器每个虚拟机的RMR。
 
     \begin{figure}[htbp]
       \centering
@@ -415,7 +399,6 @@ $ w_{cpu} $、$ w_{mem} $、$ w_{net} $分别代表服务器的CPU、内存和�
     \end{figure}
 
     其中 $ net(i) $表示虚拟机的占用带宽，$ mem(i) $表示虚拟机占用的内存。那么最后选择RMR的值最大的虚拟机作为待迁移的虚拟机。
-\end{enumerate}
 
 \subsection{目标服务器的迁移匹配策略}
 蚂蚁在完成对数据中心的服务器搜索之后，需要在蚂蚁内存中的低负载列表记录的迁移目标服务器列表选择一台服务器进行迁移。为了解决待迁移虚拟机需求资源和服务器剩余资源之间的匹配的问题，本文定义的一种匹配度$ Match_{vm-ser} $的概念，公式如下所示。
@@ -428,14 +411,16 @@ $ w_{cpu} $、$ w_{mem} $、$ w_{net} $分别代表服务器的CPU、内存和�
 其中，$ SerR_{cpu} $、$ SerR_{mem} $、$ SerR_{net} $分别代表服务器剩余的CPU、内存和带宽资源。$ VmR_{cpu} $、$ VmR_{mem} $、$ VmR_{net} $则分别代表虚拟机需要的CPU、内存和带宽资源。如果$ Match_{vm_i-ser_j} < 0 $则说明待迁移虚拟机与该目标服务器匹配失败，即虚拟机需要的资源超过了服务器的剩余资源。
 
 待迁移虚拟机与目标服务器列表的匹配过程如下。
-\usepackage{enumerate}
-\begin{enumerate}[(1)]
-    \item 从蚂蚁内存的低负载服务器列表中获取迁移目标服务器。
-    \item 依次遍历每一个服务器计算其匹配度。
-    \item 对服务器的匹配度进行排序，取匹配度最大的服务器作为虚拟机迁移的目标服务器。
-    \item 若所有的服务器的匹配度均小于 0 ，则该服务器重新生成蚂蚁开始下一轮搜索过程。
-    \item 开始虚拟机迁移。
-\end{enumerate}
+
+    (1). 从蚂蚁内存的低负载服务器列表中获取迁移目标服务器。
+
+    (2). 依次遍历每一个服务器计算其匹配度。
+
+    (3). 对服务器的匹配度进行排序，取匹配度最大的服务器作为虚拟机迁移的目标服务器。
+
+    (4). 若所有的服务器的匹配度均小于 0 ，则该服务器重新生成蚂蚁开始下一轮搜索过程。
+
+    (5). 开始虚拟机迁移。
 
 \section{本章小结}
 本章主要介绍了面向负载均衡的虚拟机动态迁移框架的设计，首先从整体上介绍了该框架在服务器上所处的位置以及所起到的作用。然后详细地介绍了该动态迁移框架的各个模块的设计。最后介绍了待迁移虚拟机的选择策略和目标服务器的迁移匹配策略。整个框架的设计基本如前所述，本章都做了详细介绍。
@@ -550,21 +535,20 @@ $ T $表示数据中心的负载均衡值达到$ L_T $所花费的时间，$ L_0
 \chapter{总结与展望}
 本文经过前四章的研究，深入介绍了本文设计的面向负载均衡的虚拟机动态迁移框架并且通过模拟实验对框架的负载均衡效果进行了比较深入的分析，得出了本文设计的虚拟机动态迁移框架具有比较好的负载均衡效果的结论。下面总结一下本文完成的主要工作。
 
-\usepackage{enumerate}
-\begin{enumerate}[(1)]
-    \item 学习了云计算及虚拟化的相关概念，研究虚拟机动态迁移的技术。
-    \item 设计了虚拟机动态迁移框架。借鉴蚁群算法的思想，利用蚂蚁在搜索过程中获取并记录服务器信息，并根据信息素等信息不断优化搜索路径，找到适合迁移的虚拟机。并通过设置不同的阙值来定义一个服务器的负载状态模型，通过定时计算服务器的负载值来动态观察服务器所处的负载域，当服务器过载便会生成蚂蚁去搜寻可以迁移的服务器。最终通过一定的选择策略来选择待迁移服务器上适合迁移的虚拟机，以及一定的迁移策略来选择适合迁移的目的服务器，最终完成虚拟机的迁移过程。
-    \item 扩展了云计算模拟平台 CloudSim，仿真云计算环境下的数据中心、服务器以及虚拟机等云计算基础设施，并应用本文提出的虚拟机迁移框架进行虚拟机迁移的模拟，最终对这个虚拟机迁移框架的性能及其最终的负载均衡效果进行了分析与评估。
-\end{enumerate}
+    (1). 学习了云计算及虚拟化的相关概念，研究虚拟机动态迁移的技术。
+    
+    (2). 设计了虚拟机动态迁移框架。借鉴蚁群算法的思想，利用蚂蚁在搜索过程中获取并记录服务器信息，并根据信息素等信息不断优化搜索路径，找到适合迁移的虚拟机。并通过设置不同的阙值来定义一个服务器的负载状态模型，通过定时计算服务器的负载值来动态观察服务器所处的负载域，当服务器过载便会生成蚂蚁去搜寻可以迁移的服务器。最终通过一定的选择策略来选择待迁移服务器上适合迁移的虚拟机，以及一定的迁移策略来选择适合迁移的目的服务器，最终完成虚拟机的迁移过程。
+
+    (3). 扩展了云计算模拟平台 CloudSim，仿真云计算环境下的数据中心、服务器以及虚拟机等云计算基础设施，并应用本文提出的虚拟机迁移框架进行虚拟机迁移的模拟，最终对这个虚拟机迁移框架的性能及其最终的负载均衡效果进行了分析与评估。
 
 但是，由于时间以及个人能力的关系，本文的研究工作还有一些不足之处，还有很多可以进行深入研究的方面，主要的方面如下：
 
-\usepackage{enumerate}
-\begin{enumerate}[(1)]
-    \item 对于服务器的负载可以根据历史的服务器资源相关数据进行有效预测，这样可以提早进行虚拟机迁移相关工作，提高虚拟机迁移效率。
-    \item 对于蚂蚁的步长可以根据当前数据中心负载情况进行动态计算，针对负载情况更加灵活的进行搜索，提高搜索以及虚拟机迁移效率。
-    \item 对于虚拟机迁移过程中的数据安全问题也可以进行深入研究，甚至可以作为一个课题单独进行研究。
-\end{enumerate}
+    (1). 对于服务器的负载可以根据历史的服务器资源相关数据进行有效预测，这样可以提早进行虚拟机迁移相关工作，提高虚拟机迁移效率。
+
+    (2). 对于蚂蚁的步长可以根据当前数据中心负载情况进行动态计算，针对负载情况更加灵活的进行搜索，提高搜索以及虚拟机迁移效率。
+    
+    (3). 对于虚拟机迁移过程中的数据安全问题也可以进行深入研究，甚至可以作为一个课题单独进行研究。
+
 
 
 
