@@ -376,7 +376,7 @@ $ w_{cpu} $、$ w_{mem} $、$ w_{net} $分别代表服务器的CPU、内存和�
 
  \begin{figure}[htp]
   \centering
-  \includegraphics[width=0.3\linewidth]{./Figure/IMG_Chap3_12.png}
+  \includegraphics{./Figure/IMG_Chap3_12.png}
 \end{figure}
 
 其中$ VmU_{cpu(i)} $表示虚拟机的CPU利用率，$VmU_{mem(i)} $表示虚拟机占用服务器的内存比例。那么最后选择RMR的值最大的虚拟机作为待迁移的虚拟机。
@@ -387,7 +387,7 @@ $ w_{cpu} $、$ w_{mem} $、$ w_{net} $分别代表服务器的CPU、内存和�
 
  \begin{figure}[htp]
   \centering
-  \includegraphics[width=0.3\linewidth]{./Figure/IMG_Chap3_13.png}
+  \includegraphics{./Figure/IMG_Chap3_13.png}
 \end{figure}
 
 其中 $ net(i) $表示虚拟机的占用带宽，$ mem(i) $表示虚拟机占用的内存。那么最后选择RMR的值最大的虚拟机作为待迁移的虚拟机。
@@ -397,7 +397,7 @@ $ w_{cpu} $、$ w_{mem} $、$ w_{net} $分别代表服务器的CPU、内存和�
 
 \begin{figure}[htp]
   \centering
-  \includegraphics[width=0.8\linewidth]{./Figure/IMG_Chap3_14.png}
+  \includegraphics{./Figure/IMG_Chap3_14.png}
 \end{figure}
 
 其中，$ SerR_{cpu} $、$ SerR_{mem} $、$ SerR_{net} $分别代表服务器剩余的CPU、内存和带宽资源。$ VmR_{cpu} $、$ VmR_{mem} $、$ VmR_{net} $则分别代表虚拟机需要的CPU、内存和带宽资源。如果$ Match_{vm_i-ser_j} < 0 $则说明待迁移虚拟机与该目标服务器匹配失败，即虚拟机需要的资源超过了服务器的剩余资源。
