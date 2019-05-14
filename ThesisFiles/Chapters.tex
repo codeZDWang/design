@@ -11,9 +11,9 @@
 \section{国内外研究现状}
 应用程序性能需求的前期可以通过高性能硬件和相关软件协议的适当配置来满足。高性能的硬件资源造成了成本的限制，通过对云数据中心的适当部署和管理，也可以降低成本。利用云服务模型按使用付费策略的好处，可以控制成本约束。此后，大多数服务提供商决定将其应用程序移入云端，从而将数据中心移入云端。
 
-结合硬件和负载平衡算法，应用程序的高响应特性还需要数据中心内部架构的支持，以保持高级别的可用性。并行研究结果表明，仅通过增强负载平衡机制，就可以进一步提高性能\cite{Xiang,Yan}。应用程序的高可用性表明数据中心组件的最佳冗余控制。因此，平行研究结果也证明了在许多方法中使用最佳设置\cite{Gang,Beloglazov}。云上的数据中心是所有主要计算和通信硬件组件的集合框架，因此，深入分析和理解所有硬件组件是研究的主要目标，以实现最佳策略。
+应用程序的高响应特性需要数据中心内部架构的支持，再结合硬件和负载均衡算法，可以保持高级别的可用性。同时研究结果也表明，仅通过增强负载均衡机制，也可以进一步提高性能\cite{Xiang,Yan}。应用程序的高可用性需要数据中心组件的最佳冗余控制。许多研究结果也证明了在许多方法中使用了最优设置\cite{Gang,Beloglazov}。云上的数据中心是所有主要计算和通信硬件组件的集合框架，因此，深入分析和理解所有硬件组件是研究的主要目标，以实现最佳策略。
 
-为了实现最高级别的负载平衡，云数据中心的性能需要通过固定格式的性能参数进行验证，而不是根据可用性或高计算速度或更高存储级别或更高冗余级别来衡量的传统方法。最近的研究成果未能提出一个标准的性能评估矩阵，该矩阵必须提出一组关注数据中心各个方面的参数，以实现高水平的负载平衡性能。就云端数据中心的性能而言，对计算增长的需求以及性能参数的制定是当前研究趋势的需求。
+为了实现高级别的负载均衡，云数据中心的性能需要通过固定格式的性能参数进行验证，而不是根据可用性或高计算速度或更高存储级别或更高冗余级别来衡量的传统方法。最近的研究成果提出了一种适用于云数据中心的动态分层负载均衡服务架构，该架构最适合负载均衡机制，并提出了一种通用的性能评估矩阵来评估云数据中心的性能，该矩阵设计了一组关注数据中心各个方面的参数，以实现高水平的负载均衡性能\cite{Kothapuli}。就云端数据中心的性能而言，对计算增长的需求以及性能参数的制定是当前研究的趋势。
 
 \section{本文的主要工作}
 本文对面向负载均衡的虚拟机迁移方法进行了深入研究，设计了一种虚拟机动态迁移框架。主要工作如下：
@@ -28,7 +28,7 @@
 
 第一章，绪论
 
-介绍本课题的研究背景及意义，对虚拟机迁移技术的相关国内外研究现状进行了分析，并对本文的主要工作和论文内容安排进行了说明。
+介绍本课题的研究背景及意义，对相关的国内外研究现状进行了分析，并对本文的主要工作和论文内容安排进行了说明。
 
 第二章，相关技术研究
 
@@ -108,12 +108,6 @@ Gerald J.Popek和Robert P.Goldberg 在他们1974年的文章“Formal Requiremen
 
     (4). KVM
 
-\begin{figure}[htb]
-  \centering
-  \includegraphics{./Figure/IMG_Chap2_2.png}
-  \caption{VMM-Type1}\label{Fig:chap2_2}
-\end{figure}
-
 \textbf{类型II：Hosted Hypervisor}
 
 这种虚拟机管理程序运行在主机的操作系统上，跟其他计算机程序没有明显的区别。
@@ -131,12 +125,6 @@ Gerald J.Popek和Robert P.Goldberg 在他们1974年的文章“Formal Requiremen
     (2). Xen3.0以前版本
     
     (3). Virtual PC 2004
-
-\begin{figure}[htb]
-  \centering
-  \includegraphics{./Figure/IMG_Chap2_3.png}
-  \caption{VMM-Type2}\label{Fig:chap2_3}
-\end{figure}
 
 \section{虚拟机动态迁移技术}
 最初，纯粹的停机复制方法被用于虚拟机迁移。这包括停止原始虚拟机和在启动新的虚拟机之后，将所有页复制到目标。这个方法的优势在于实现简单但内存迁移需要的时间与虚拟机的内存大小成正比，对于运行服务的实时系统来说，这样的停机时间是不可接受的。
@@ -169,8 +157,8 @@ Pre-copy算法的过程：
 
 \begin{figure}[htb]
   \centering
-  \includegraphics{./Figure/IMG_Chap2_4.png}
-  \caption{Pre-copy算法}\label{Fig:chap2_4}
+  \includegraphics{./Figure/IMG_Chap2_2.png}
+  \caption{Pre-copy算法}\label{Fig:chap2_2}
 \end{figure}
 
 优点：同静态复制算法相比，Pre-copy算法缩短了停机时间。
@@ -181,8 +169,8 @@ Post-copy算法的过程：
 
 \begin{figure}[htb]
   \centering
-  \includegraphics{./Figure/IMG_Chap2_5.png}
-  \caption{Post-copy算法}\label{Fig:chap2_5}
+  \includegraphics{./Figure/IMG_Chap2_3.png}
+  \caption{Post-copy算法}\label{Fig:chap2_3}
 \end{figure}
 
 优点：较Pre-copy迁移时间短。
@@ -198,8 +186,8 @@ Post-copy算法的过程：
 
 \begin{figure}[htb]
   \centering
-  \includegraphics{./Figure/IMG_Chap2_6.png}
-  \caption{蚁群算法}\label{Fig:chap2_6}
+  \includegraphics{./Figure/IMG_Chap2_4.png}
+  \caption{蚁群算法}\label{Fig:chap2_4}
 \end{figure}
 
 \section{本章小结}
@@ -307,7 +295,7 @@ public class Ant {
 
 \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.8\linewidth]{./Figure/IMG_Chap3_5.png}
+  \includegraphics[width=0.85\linewidth]{./Figure/IMG_Chap3_5.png}
 \end{figure}
 
 $ τ_{ij} (t) $表示节点$ i $观察到的节点$ j $的信息素浓度，$allowedList(t) $表示$ t $时刻蚂蚁可以访问的服务器列表，蚂蚁每经过一个服务器就将该服务器加入到负载列表并且将该服务器从允许列表中移除以防止进行重复搜索，$net_{ij} (t) $表示要考虑带宽的影响，带宽越大，服务器被选择的概率越大，节点的负载值越低，那么$ 1 - load_j $的值越大，服务器被选择的概率越大。$ α、β、γ $体现了信息素浓度、网络状态和负载值对蚂蚁在搜索过程中对服务器选择的相对重要性，其中$ α ≥0，β ≥0，γ ≥0 $。
@@ -349,7 +337,7 @@ public class AntAlgorithm {
 
  \begin{figure}[htb]
   \centering
-  \includegraphics[width=0.6\linewidth]{./Figure/IMG_Chap3_7.png}
+  \includegraphics[width=0.65\linewidth]{./Figure/IMG_Chap3_7.png}
 \end{figure}
 
  \begin{figure}[htb]
@@ -386,7 +374,7 @@ $ w_{cpu} $、$ w_{mem} $、$ w_{net} $分别代表服务器的CPU、内存和�
 
     (1). 如果CPU是使服务器负载过高的瓶颈资源，那么按照如下公式计算服务器每个虚拟机的RMR。
 
-     \begin{figure}[htb]
+     \begin{figure}[ht]
       \centering
       \includegraphics[width=0.3\linewidth]{./Figure/IMG_Chap3_12.png}
      \end{figure}
@@ -397,7 +385,7 @@ $ w_{cpu} $、$ w_{mem} $、$ w_{net} $分别代表服务器的CPU、内存和�
     
     (3). 如果带宽是使服务器负载过高的瓶颈资源，那么按照如下公式计算服务器每个虚拟机的RMR。
 
-    \begin{figure}[htb]
+    \begin{figure}[ht]
       \centering
       \includegraphics[width=0.3\linewidth]{./Figure/IMG_Chap3_13.png}
     \end{figure}
@@ -407,7 +395,7 @@ $ w_{cpu} $、$ w_{mem} $、$ w_{net} $分别代表服务器的CPU、内存和�
 \subsection{目标服务器的迁移匹配策略}
 蚂蚁在完成对数据中心的服务器搜索之后，需要在蚂蚁内存中的低负载列表记录的迁移目标服务器列表选择一台服务器进行迁移。为了解决待迁移虚拟机需求资源和服务器剩余资源之间的匹配的问题，本文定义的一种匹配度$ Match_{vm-ser} $的概念，公式如下所示。
 
-\begin{figure}[htb]
+\begin{figure}[ht]
   \centering
   \includegraphics[width=0.8\linewidth]{./Figure/IMG_Chap3_14.png}
 \end{figure}
