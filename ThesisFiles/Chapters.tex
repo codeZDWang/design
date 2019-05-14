@@ -372,25 +372,24 @@ $ w_{cpu} $、$ w_{mem} $、$ w_{net} $分别代表服务器的CPU、内存和�
 
 计算得到值最大的即为导致服务器负载过高的决定的因素，然后根据这一因素决定需要迁移的虚拟机。为了同时考虑虚拟机迁移成本，还要考虑虚拟机占用的内存空间，那么就需要计算服务器的各个虚拟机的瓶颈资源和虚拟机占用内存的比值。定义变量RMR来表示使服务器负载过高的瓶颈资源与虚拟机占用内存的比值。按照使虚拟机负载过高的瓶颈资源不同的选择方式如下。
 
-(1). 如果CPU是使服务器负载过高的瓶颈资源，那么按照如下公式计算服务器每个虚拟机的RMR。
+\begin{itemize}
+ \item 如果CPU是使服务器负载过高的瓶颈资源，那么按照如下公式计算服务器每个虚拟机的RMR。
 
- \begin{figure}[htp]
-  \centering
-  \includegraphics{./Figure/IMG_Chap3_12.png}
-\end{figure}
+        \begin{figure}[htp]
+          \centering
+          \includegraphics{./Figure/IMG_Chap3_12.png}
+        \end{figure}
 
-其中$ VmU_{cpu(i)} $表示虚拟机的CPU利用率，$VmU_{mem(i)} $表示虚拟机占用服务器的内存比例。那么最后选择RMR的值最大的虚拟机作为待迁移的虚拟机。
-    
-(2). 如果内存使服务器负载过高的瓶颈资源。那么选择占用内存最大的虚拟机作为待迁移的虚拟机。
+ \item 如果内存使服务器负载过高的瓶颈资源。那么选择占用内存最大的虚拟机作为待迁移的虚拟机。
+ \item 如果带宽是使服务器负载过高的瓶颈资源，那么按照如下公式计算服务器每个虚拟机的RMR。
 
-(3). 如果带宽是使服务器负载过高的瓶颈资源，那么按照如下公式计算服务器每个虚拟机的RMR。
+        \begin{figure}[htp]
+          \centering
+          \includegraphics{./Figure/IMG_Chap3_13.png}
+        \end{figure}
 
- \begin{figure}[htp]
-  \centering
-  \includegraphics{./Figure/IMG_Chap3_13.png}
-\end{figure}
-
-其中 $ net(i) $表示虚拟机的占用带宽，$ mem(i) $表示虚拟机占用的内存。那么最后选择RMR的值最大的虚拟机作为待迁移的虚拟机。
+        其中 $ net(i) $表示虚拟机的占用带宽，$ mem(i) $表示虚拟机占用的内存。那么最后选择RMR的值最大的虚拟机作为待迁移的虚拟机。
+ \end{itemize}
 
 \subsection{目标服务器的迁移匹配策略}
 蚂蚁在完成对数据中心的服务器搜索之后，需要在蚂蚁内存中的低负载列表记录的迁移目标服务器列表选择一台服务器进行迁移。为了解决待迁移虚拟机需求资源和服务器剩余资源之间的匹配的问题，本文定义的一种匹配度$ Match_{vm-ser} $的概念，公式如下所示。
