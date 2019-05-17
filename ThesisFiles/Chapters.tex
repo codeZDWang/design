@@ -151,9 +151,9 @@ IO状态迁移和CPU状态迁移类似，都可以直接采用停机拷贝的方
 \subsection{虚拟机动态迁移的过程}
 虚拟机动态迁移的过程主要是内存迁移的过程，内存迁移主要有两种方法：Pre-copy算法和Post-copy算法\cite{Aidan}。
 
-Pre-copy算法的过程：
+Pre-copy算法的过程如图 \ref{Fig:chap2_2} 所示。
 
-\begin{figure}[htb]
+\begin{figure}[!htb]
   \centering
   \includegraphics{./Figure/IMG_Chap2_2.png}
   \caption{Pre-copy算法}\label{Fig:chap2_2}
@@ -163,7 +163,7 @@ Pre-copy算法的过程：
 
 不足：负载较高时，内存页面修改频繁，受网络带宽等因素影响，迭代无法收敛进入强制复制阶段，会造成较大的系统开销，引起较长的停机时间和总迁移时间。
 
-Post-copy算法的过程：
+Post-copy算法的过程如图 \ref{Fig:chap2_3} 所示。
 
 \begin{figure}[htb]
   \centering
@@ -182,7 +182,7 @@ Post-copy算法的过程：
 
 如图 \ref{Fig:chap2_4} 中所示的实验设置。是一条蚂蚁寻找食物的路径。在路径上放置障碍物，阻断蚂蚁的行走路线。因此，在B位置，蚂蚁必须作出决定。选择受前蚂蚁留下的信息素痕迹强度的影响。正确的路径上更高的信息素浓度对蚂蚁具有更强的刺激，因此蚂蚁更有可能向右转。由于在两条路径上没有先前的蚂蚁留下信息素，到达B点（或D点）的第一个蚂蚁向右或向左转的概率相同。因为路径BCD比BHD短，所以跟随它的蚂蚁先到达D。结果是从E到D返回的蚂蚁将在路径DCB上找到信息素更强的路径，它们将因此优先选则路径DCB。因此，路径BCD之后的蚂蚁数量将高于BHD之后的蚂蚁数量。这导致较短路径上的信息素浓度比较长路径上的信息素浓度增长得更快，因此任何后续蚂蚁选择路径的概率很快偏向较短路径。最终的结果是，所有蚂蚁很快就会选择较短的路径。
 
-\begin{figure}[htb]
+\begin{figure}[!htb]
   \centering
   \includegraphics{./Figure/IMG_Chap2_4.png}
   \caption{蚁群算法}\label{Fig:chap2_4}
