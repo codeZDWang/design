@@ -163,7 +163,7 @@ Pre-copy算法的过程如图 \ref{Fig:chap2_2} 所示。
 
 Post-copy算法的过程如图 \ref{Fig:chap2_3} 所示。
 
-\begin{figure}[htb]
+\begin{figure}[!htb]
   \centering
   \includegraphics{./Figure/IMG_Chap2_3.png}
   \caption{Post-copy算法}\label{Fig:chap2_3}
@@ -351,17 +351,17 @@ $ w_{cpu} $、$ w_{mem} $、$ w_{net} $分别代表服务器的CPU、内存和�
 
 首先要确定使服务器负载过高的因素，常见的考虑因素主要有CPU、内存及带宽，那么就要计算三种因素各自所占用的比例，计算公式如下。
 
- \begin{figure}[htb]
+ \begin{figure}[!htb]
   \centering
   \includegraphics[width=0.3\linewidth]{./Figure/IMG_Chap3_9.png}
 \end{figure}
 
- \begin{figure}[htb]
+ \begin{figure}[!htb]
   \centering
   \includegraphics[width=0.3\linewidth]{./Figure/IMG_Chap3_10.png}
 \end{figure}
 
- \begin{figure}[htb]
+ \begin{figure}[!htb]
   \centering
   \includegraphics[width=0.3\linewidth]{./Figure/IMG_Chap3_11.png}
 \end{figure}
@@ -507,20 +507,22 @@ CIS提供信息注册表类型的功能，每个实体在CIS注册表中注册�
   \includegraphics[width=0.2\linewidth]{./Figure/IMG_Chap4_6.png}
 \end{figure}
 
-$ T $表示数据中心的负载均衡值达到$ L_T $所花费的时间，$ L_0 $表示数据中心的初始负载均衡值，$ L_T $表示数据中心在$ T $时刻的负载均衡值。设置数据中心的调度时间间隔为300s，数据中心运行的总时间为3600s，计算每个调度时间点的$ L_{eff} $，绘制的蚂蚁的步长对数据中心的负载均衡效率的影响统计图如图所示。
+$ T $表示数据中心的负载均衡值达到$ L_T $所花费的时间，$ L_0 $表示数据中心的初始负载均衡值，$ L_T $表示数据中心在$ T $时刻的负载均衡值。设置数据中心的调度时间间隔为300s，数据中心运行的总时间为3600s，计算每个调度时间点的$ L_{eff} $，绘制的蚂蚁的步长对数据中心的负载均衡效率的影响统计图如图 \ref{Fig:chap4_4} 所示。
 
 \begin{figure}[htb]
   \centering
   \includegraphics{./Figure/IMG_Chap4_7.png}
+  \caption{}\label{Fig:chap4_4}
 \end{figure}
 
 根据上图分析可以得出以下结论：若蚂蚁的步长过短，如步长$ s = 5 $，可能搜集的低负载服务器信息不足，导致蚂蚁再次搜索，影响虚拟机迁移的效率。若蚂蚁的步长过长，如$ s = 15 $，会导致蚂蚁的搜索时间过长，也同样会影响虚拟机迁移的效率。当蚂蚁的程度在一个比较合适的值时，比如$ s = 10 $，则在蚂蚁的搜索效率和虚拟机迁移的虚拟机的迁移的效率之间可以找到适当的平衡，使数据中心达到负载均衡的效率达到一个比较高的水平。
 
-为了进一步分析比较本文提出的虚拟机迁移框架的负载均衡效果，需要进一步进行实验，把采用本文的虚拟机迁移框架与未采取任何负载均衡措施对数据中心的负载均衡值的影响进行比较。还是与上述实验的设置一样，设置数据中心的调度时间间隔为300s，数据中心运行的总时间为3600s。采用上文提出的计算方法对数据中心的负载均衡值进行计算。得到的结果如图所示。
+为了进一步分析比较本文提出的虚拟机迁移框架的负载均衡效果，需要进一步进行实验，把采用本文的虚拟机迁移框架与未采取任何负载均衡措施对数据中心的负载均衡值的影响进行比较。还是与上述实验的设置一样，设置数据中心的调度时间间隔为300s，数据中心运行的总时间为3600s。采用上文提出的计算方法对数据中心的负载均衡值进行计算。得到的结果如图 \ref{Fig:chap4_5} 所示。
 
 \begin{figure}[htb]
   \centering
   \includegraphics{./Figure/IMG_Chap4_8.png}
+  \caption{}\label{Fig:chap4_5}
 \end{figure}
 
 通过对上图的分析可以明显看出采用本文的虚拟机迁移框架比未采取任何负载均衡措施可以明显降低数据中心的负载均衡值的大小，即有效提高数据中心的负载均衡程度。
