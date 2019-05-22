@@ -313,7 +313,8 @@ public class AntAlgorithm {
                 server.setPheromone(ser.getPheromone() * (1 - CommonConfig.rate));
             }
             // 信息素更新
-            server.setPheromone(server.getPheromone() + CommonConfig.base * (1 - server.getLoad()));
+            server.setPheromone(server.getPheromone() + 
+            CommonConfig.base * (1 - server.getLoad()));
         }
     }
 }
@@ -390,7 +391,7 @@ $ w_{cpu} $、$ w_{mem} $、$ w_{net} $分别代表服务器的CPU、内存和�
 \subsection{目标服务器的迁移匹配策略}
 蚂蚁在完成对数据中心的服务器搜索之后，需要在蚂蚁内存中的低负载列表记录的迁移目标服务器中选择一台服务器进行迁移。为了解决待迁移虚拟机需求资源和服务器剩余资源之间的匹配的问题，本文定义的一种匹配度$ Match_{vm-ser} $的概念，公式如下所示。
 
-\begin{figure}[htp]
+\begin{figure}[!htp]
   \centering
   \includegraphics{./Figure/IMG_Chap3_14.png}
 \end{figure}
@@ -512,7 +513,7 @@ $ T $表示数据中心的负载均衡值达到$ L_T $所花费的时间，$ L_0
 \begin{figure}[htb]
   \centering
   \includegraphics{./Figure/IMG_Chap4_7.png}
-  \caption{}\label{Fig:chap4_4}
+  \caption{蚂蚁的步长对数据中心的负载均衡效率的影响}\label{Fig:chap4_4}
 \end{figure}
 
 根据上图分析可以得出以下结论：若蚂蚁的步长过短，如步长$ s = 5 $，可能搜集的低负载服务器信息不足，导致蚂蚁再次搜索，影响虚拟机迁移的效率。若蚂蚁的步长过长，如$ s = 15 $，会导致蚂蚁的搜索时间过长，也同样会影响虚拟机迁移的效率。当蚂蚁的程度在一个比较合适的值时，比如$ s = 10 $，则在蚂蚁的搜索效率和虚拟机迁移的虚拟机的迁移的效率之间可以找到适当的平衡，使数据中心达到负载均衡的效率达到一个比较高的水平。
@@ -522,7 +523,7 @@ $ T $表示数据中心的负载均衡值达到$ L_T $所花费的时间，$ L_0
 \begin{figure}[htb]
   \centering
   \includegraphics{./Figure/IMG_Chap4_8.png}
-  \caption{}\label{Fig:chap4_5}
+  \caption{采用本文的虚拟机迁移框架与未采取任何负载均衡措施对数据中心负载均衡值的影响}\label{Fig:chap4_5}
 \end{figure}
 
 通过对上图的分析可以明显看出采用本文的虚拟机迁移框架比未采取任何负载均衡措施可以明显降低数据中心的负载均衡值的大小，即有效提高数据中心的负载均衡程度。
