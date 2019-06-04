@@ -68,13 +68,13 @@ VDC链路的映射可以表示为：
   \includegraphics{./Figure/express3.png}
 \end{figure}
 
-图\ref{Fig1}显示了重新映射和迁移VDC迁移请求的示例。在此示例中，VDC迁移请求最初映射到数据中心A和C，如图中黑色虚线框所示。在重映射过程中，VDC迁移请求被映射到数据中心B和D，如图\ref{Fig1}中的红色实心框所示.
-
 \begin{figure}[!htb]
   \centering
   \includegraphics[{./Figure/Fig3.png}
   \caption{一个VDC迁移实例}\label{Fig1}
 \end{figure}
+
+图\ref{Fig1}显示了重新映射和迁移VDC迁移请求的示例。在此示例中，VDC迁移请求最初映射到数据中心A和C，如图中黑色虚线框所示。在重映射过程中，VDC迁移请求被映射到数据中心B和D，如图\ref{Fig1}中的红色实心框所示.
 
 \section{VDC迁移时间}
 我们使用预复制策略迁移单个虚拟机。对于多个虚拟机，我们使用并行迁移策略。单个虚拟机的迁移时间和停机时间与\cite{callegati2013live}类似。
@@ -143,7 +143,7 @@ VDC-M算法的主要步骤包括重新映射VDC，计算迁移路径和为迁移
 \begin{enumerate}
     \item VDC重新映射和迁移成本总额：使用基础网络资源重新映射和迁移所有VDC迁移请求的总成本。它可以如公式所计算。
 
-      \begin{figure}[!htb]
+    \begin{figure}[!htb]
     \centering
     \includegraphics{./Figure/express15.png}
   \end{figure}
